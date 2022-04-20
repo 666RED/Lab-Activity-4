@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct queueNode{
+struct queueNode
+{
     char data;
     struct queueNode *nextPtr;
 };
@@ -14,7 +15,8 @@ char dequeue(queueNode**, queueNode**);
 void enqueue(queueNode**, queueNode**, char);
 void instructions();
 
-int main(){
+int main()
+{
     queueNode* headPtr = NULL;
     queueNode* tailPtr = NULL;
     int choice;
@@ -24,64 +26,79 @@ int main(){
     printf("\nEnter your choice: ");
     scanf("%d", &choice);
 
-    while (choice != 3){
-        switch(choice){
-            case 1: {
-                printf("Enter an alphabet: ");
-                scanf("\n%c", &data);
-                enqueue(&headPtr, &tailPtr, data);
-                printQueue(headPtr);
-                break;
-            }
+    while (choice != 3)
+    {
+        switch(choice)
+        {
+        case 1:
+        {
+            printf("Enter an alphabet: ");
+            scanf("\n%c", &data);
+            enqueue(&headPtr, &tailPtr, data);
+            printQueue(headPtr);
+            break;
+        }
 
-            case 2: {
-                if(!isEmpty(headPtr)){
-                    data = dequeue(&headPtr, &tailPtr);
-                    printf("%c has been dequeued.\n", data);
-                }
-                printQueue(headPtr);
-                break;
+        case 2:
+        {
+            if(!isEmpty(headPtr))
+            {
+                data = dequeue(&headPtr, &tailPtr);
+                printf("%c has been dequeued.\n", data);
             }
+            printQueue(headPtr);
+            break;
+        }
 
-            default: {
-                printf("Invalid choice.\n\n");
-                instructions();
-                break;
-            }
+        default:
+        {
+            printf("Invalid choice.\n\n");
+            instructions();
+            break;
+        }
         }
         printf("Enter your menu choice: ");
         scanf("%d", &choice);
-     }
+    }
 
     printf("End of main program.\n ");
     return 0;
 }
 
-void instructions(){
+void instructions()
+{
     printf("\nEnter choice:\n"
-     "1 to add item to the queue\n"
-     "2 to remove item from the queue\n"
-     "3 to end program\n");
+           "1 to add item to the queue\n"
+           "2 to remove item from the queue\n"
+           "3 to end program\n");
 }
 
-void enqueue(queueNode** headPtr, queueNode** tailPtr, char value){
+void enqueue(queueNode** headPtr, queueNode** tailPtr, char value)
+{
     queueNode* newPtr = (queueNode*)malloc(sizeof(queueNode));
-    if (newPtr != NULL){
+    if (newPtr != NULL)
+    {
         newPtr->data = value;
         newPtr->nextPtr = NULL;
 
-        if(isEmpty(*headPtr)){
+        if(isEmpty(*headPtr))
+        {
             *headPtr = newPtr;
-        }else{
+        }
+        else
+        {
             (*tailPtr)->nextPtr = newPtr;
         }
         *tailPtr = newPtr;
-    }else{
+    }
+    else
+    {
         printf("%c is not inserted. No memory available", value);
     }
 }
 
-char dequeue(queueNode** headPtr, queueNode** tailPtr){
+char dequeue(queueNode** headPtr, queueNode** tailPtr)
+{
     char value;
     queueNode* tempPtr;
 
@@ -89,24 +106,31 @@ char dequeue(queueNode** headPtr, queueNode** tailPtr){
     tempPtr = *headPtr;
     *headPtr = (*headPtr)->nextPtr;
 
-    if(*headPtr == NULL){
+    if(*headPtr == NULL)
+    {
         *tailPtr = NULL;
     }
     free(tempPtr);
     return value;
 }
 
-int isEmpty(queueNode* headPtr){
+int isEmpty(queueNode* headPtr)
+{
     return (headPtr == NULL);
 }
 
-void printQueue(queueNode* currPtr){
-    if(currPtr == NULL){
+void printQueue(queueNode* currPtr)
+{
+    if(currPtr == NULL)
+    {
         printf("The queue is empty.\n\n");
-    }else{
+    }
+    else
+    {
         printf("The queue is:\n");
 
-        while(currPtr != NULL){
+        while(currPtr != NULL)
+        {
             printf("%c -->",currPtr->data);
             currPtr = currPtr->nextPtr;
         }
